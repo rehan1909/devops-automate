@@ -1,14 +1,4 @@
-# Use the official Jenkins image as the base
-FROM jenkins/jenkins:lts
-
-# Switch to the root user to install Docker
-USER root
-
-# Install Docker CLI
-RUN apt-get update && apt-get install -y docker.io
-
-# Add the Jenkins user to the Docker group
-RUN usermod -aG docker jenkins
-
-# Switch back to the Jenkins user
-USER jenkins
+FROM openjdk:8
+EXPOSE 8080
+ADD target/devops-integration.jar devops-integration.jar
+ENTRYPOINT ["java","-jar","/devops-integration.jar"]
